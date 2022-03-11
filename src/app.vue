@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <vue-calendar-plus :firstDayOfWeek="7" mode="multiple" />
+    <vue-calendar-plus
+      :firstDayOfWeek="7"
+      mode="multiple"
+      placeholder="请输入月" />
   </div>
 </template>
 <script>

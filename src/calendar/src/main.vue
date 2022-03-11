@@ -2,7 +2,9 @@
   <div class="aw-calendar">
     <div class="aw-calendar__header">
       <div class="aw-calendar__title">
-        <MonthPicker />
+        <MonthPicker
+          :placeholder="placeholder"
+          @pickMonth="changeDate" />
       </div>
       <div class="aw-calendar__date">
         <slot :date="curMonthDatePrefix"></slot>
@@ -80,14 +82,11 @@ export default {
       type: Array,
       default: () => []
     },
-    // current: {
-    //   type: [Date, String, Number],
-    //   default: ''
-    // },
     firstDayOfWeek: {
       type: Number,
       default: 1
-    }
+    },
+    placeholder: String
   },
   provide () {
     return {
@@ -223,6 +222,9 @@ export default {
         timestamp += delta;
       }
       return dayArr;
+    },
+    changeDate ({ year, month }) {
+      this.current =  new Date(year, month, 1);
     }
   },
   created () {

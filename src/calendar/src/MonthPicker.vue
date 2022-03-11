@@ -5,6 +5,7 @@
         :value="selectedTime"
         @focus="isHidden = false"
         type="input"
+        :placeholder="placeholder ? placeholder : t('aw.datepicker.monthPlaceHoder')"
         class="aw-calendar__input-inner">
       <i
         v-show="selectedTime"
@@ -56,6 +57,9 @@ export default {
       selectedTime: '',
       month: ''
     }
+  },
+  props: {
+    placeholder: String
   },
   mixins: [Locale],
   directives: {
@@ -116,7 +120,7 @@ export default {
       this.currentMonth = month;
       this.selectedTime = this.getMonthDate(month);
       this.isHidden = true;
-      this.$emit('pickMonth', month)
+      this.$emit('pickMonth', { year: this.currentYear, month })
     },
     setCurrentYear (type) {
       if (type === 'prev') {
@@ -162,6 +166,24 @@ export default {
     &:focus {
       outline: none;
       border-color: #409eff;
+    }
+    &::placeholder {
+      color: #C0C4CC;
+      font-size: 14px;
+    }
+    &::-webkit-input-placeholder {
+      color: #C0C4CC;
+      font-size: 14px;
+    }
+
+    &::-moz-placeholder {
+      color: #C0C4CC;
+      font-size: 14px;
+    }
+
+    &:-ms-input-placeholder {
+      color: #C0C4CC;
+      font-size: 14px;
     }
   }
   .aw-calendar__clear {
@@ -210,11 +232,17 @@ export default {
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease;
+.fade-enter-active,
+.fade-leave-active {
+  opacity: 1;
+  transform: scaleY(1);
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1), opacity 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center top;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
+  transform: scaleY(0);
 }
 
 .aw-calendar__month-table {
