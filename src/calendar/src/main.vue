@@ -59,13 +59,13 @@ import fecha from '../utils/date';
 import Locale from '../mixins/locale';
 import AwButton from './button';
 import AwButtonGroup from './button-group';
-import MonthPicker from './MonthPicker.vue';
+import MonthPicker from './MonthPicker';
 
 const validTypes = ['prev-month', 'today', 'next-month'];
 
 export default {
-  name: 'AwCalendar',
-  componentName: 'AwCalendar',
+  name: 'VueCalendarPlus',
+  componentName: 'VueCalendarPlus',
   components: {
     DateTable,
     AwButton,
@@ -157,6 +157,10 @@ export default {
           this.realSelectedDay = realSelectedDayCopy.filter(item => item !== day);
         }
       } else if (this.mode === 'range') {
+        if (!this.realSelectedDay || this.realSelectedDay.length < 1) {
+          this.realSelectedDay = [day];
+          return;
+        }
         const { min, max } = this.findMinAndMaxDay(this.realSelectedDay);
         const timestamp = new Date(day).getTime();
         if (timestamp < min ) {
@@ -169,7 +173,7 @@ export default {
           this.realSelectedDay = this.generateRangeDay(min, timestamp);
         }
       } else {
-        console.warn('props params mode is incorrent, please select in single, multiple or range, default is single')
+        console.warn('props mode is incorrent, please select in single, multiple or range, default is single')
       }
       console.log('real', this.realSelectedDay);
     },

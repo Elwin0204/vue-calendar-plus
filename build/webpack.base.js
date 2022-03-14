@@ -4,15 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const template = path.resolve(__dirname, '../src/index.tpl');
-const entry = path.resolve(__dirname, '../src/index.js');
 
 module.exports = {
-  entry: {
-    main: entry
-  },
-  output: {
-    path: path.resolve(__dirname, '../dist')
-  },
   module: {
     // laoder的加载顺序是从下往上，从右往左的，所以配置loader的时候要注意一下顺序。
     rules: [

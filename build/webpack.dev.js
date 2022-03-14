@@ -1,10 +1,18 @@
+const path = require('path');
 const base = require('./webpack.base');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const config = require('./config');
+const entry = path.resolve(__dirname, '../src/index.js');
 
 module.exports = merge({
   mode: 'development',
+  entry: {
+    main: entry
+  },
+  output: {
+    path: path.resolve(__dirname, '../dist')
+  },
   module: {
     rules: [
       {

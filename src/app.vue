@@ -2,16 +2,16 @@
   <div id="app">
     <vue-calendar-plus
       :firstDayOfWeek="7"
-      mode="multiple"
+      mode="range"
       placeholder="请输入月" />
   </div>
 </template>
 <script>
-  import VueCalendarPlus from './calendar'
+  // import VueCalendarPlus from './calendar'
   export default {
     name: 'App',
     components: {
-      VueCalendarPlus
+      // VueCalendarPlus
     }
   }
 </script>

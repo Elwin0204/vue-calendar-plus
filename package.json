@@ -1,18 +1,27 @@
 {
   "name": "vue-calendar-plus",
-  "version": "1.0.0",
-  "description": "A vue component with calendar functions",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "A vue component for calendar functions",
+  "main": "/dist/vue-calendar-plus.js",
   "scripts": {
-    "dev": "webpack-dev-server --config ./build/webpack.dev.js"
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Elwin0204/vue-calendar-plus.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "vue",
+    "calendar"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Elwin",
+  "private": false,
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Elwin0204/vue-calendar-plus/issues"
   },
