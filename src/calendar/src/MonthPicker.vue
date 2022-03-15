@@ -1,10 +1,11 @@
 <template>
-  <div class="aw-calendar__month-picker" v-clickoutside="() => isHidden = true">
+  <div class="aw-calendar__month-picker" v-clickoutside="handleClickOutside">
     <div class="aw-calendar__input">
       <input
         :value="selectedTime"
         @focus="isHidden = false"
-        type="input"
+        @change="handleTimeInput"
+        type="text"
         :placeholder="placeholder ? placeholder : t('aw.datepicker.monthPlaceHoder')"
         class="aw-calendar__input-inner">
       <i
@@ -27,7 +28,7 @@
             class="aw-calendar__button aw-calendar__right-arrow"
             @click="setCurrentYear('next')"></button>
         </div>
-        <table @click="handleMonthTableClick" @mousemove="handleMouseMove" class="aw-calendar__month-table">
+        <table @click="handleMonthTableClick" class="aw-calendar__month-table">
           <tbody>
           <tr v-for="(row, key) in rows" :key="key">
             <td v-for="(cell, key) in row" :key="key">
@@ -46,6 +47,7 @@
 import Locale from '../mixins/locale';
 import clickoutside from '../utils/clickoutside';
 import fecha from '../utils/date';
+const INPUT_REG = /\d{4}-(((0[1-9])|(1[0-2])))(-((0[1-9])|([1-2][0-9])|(3[0-1])))?/
 export default {
   name: 'MonthPicker',
   data () {
@@ -55,7 +57,8 @@ export default {
       now: new Date(),
       isHidden: true,
       selectedTime: '',
-      month: ''
+      month: '',
+      input: ''
     }
   },
   props: {
@@ -119,6 +122,7 @@ export default {
       const month = row * 4 + column;
       this.currentMonth = month;
       this.selectedTime = this.getMonthDate(month);
+      this.input = this.selectedTime;
       this.isHidden = true;
       this.$emit('pickMonth', { year: this.currentYear, month })
     },
@@ -134,9 +138,25 @@ export default {
     clearSelectedTime () {
       this.selectedTime = '';
       this.currentMonth = '';
+      this.input = '';
       this.isHidden = true;
     },
-    handleMouseMove () {},
+    handleClickOutside () {
+      this.isHidden = true;
+      if (this.input && INPUT_REG.test(this.input)) {
+        try {
+          this.selectedTime = fecha.format(new Date(this.input), 'yyyy-MM');
+        } catch (e) {
+          console.warn('Please enter according to the rules. e.g: 2022-02 or 2022-02-02')
+        }
+      } else {
+        this.input ? '' : this.selectedTime = '';
+        this.selectedTime ? '' : this.selectedTime = '';
+      }
+    },
+    handleTimeInput (e) {
+      this.input = e.target.value;
+    }
   }
 }
 </script>

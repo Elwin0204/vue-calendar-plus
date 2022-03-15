@@ -7,11 +7,11 @@
   </div>
 </template>
 <script>
-  // import VueCalendarPlus from './calendar'
+  import VueCalendarPlus from './calendar'
   export default {
     name: 'App',
     components: {
-      // VueCalendarPlus
+      VueCalendarPlus
     }
   }
 </script>
